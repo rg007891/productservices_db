@@ -4,6 +4,7 @@ import dev.rg.productservice.dtos.ErrorDto;
 import dev.rg.productservice.dtos.UpdateProductDto;
 import dev.rg.productservice.models.Product;
 import dev.rg.productservice.services.ProductService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +17,13 @@ public class ProductController {
 
     private final ProductService productService;
 
-    public ProductController(ProductService productService){
+    public ProductController(@Qualifier("FakeStoreProductService") ProductService productService){
         this.productService = productService;
     }
 
-    public void createProduct(){
-
+    @PostMapping()
+    public Product createProduct(@RequestBody UpdateProductDto newProduct){
+        return productService.createProduct(newProduct);
     }
 
     @GetMapping()
