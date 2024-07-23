@@ -1,33 +1,56 @@
 <!-- README.md -->
 
-# Spring Java Project with FakeStoreAPI Integration
+# Product Management API
 
-<p>This repository contains a Spring Java project that demonstrates how to interact with the <a href="https://fakestoreapi.com/">FakeStoreAPI</a> for managing products. The project includes various API endpoints and exception handling.</p>
+This project is a Spring Boot application for managing products and their categories. It provides a set of RESTful API endpoints to perform CRUD operations on products and manage their categories. The project uses MySQL as the database and leverages Spring Data JPA for data persistence.
 
-<h3>API Endpoints</h3>
+## Features
 
-<ul>
-  <li><strong>Create Product</strong>: Endpoint to create a new product.</li>
-  <li><strong>Update Product</strong>: Endpoint to update an existing product.</li>
-  <li><strong>Get Single Product</strong>: Endpoint to retrieve details of a single product.</li>
-  <li><strong>Get Product By Category</strong>: Endpoint to fetch products based on a specified category.</li>
-  <li><strong>Get All Products</strong>: Endpoint to fetch all products available.</li>
-  <li><strong>Delete Product</strong>: Endpoint to delete a product.</li>
-  <li><strong>Get All Categories</strong>: Endpoint to fetch all available categories of products.</li>
-</ul>
+- **Create Product**: Add a new product to the database.
+- **Update Product**: Update an existing product's details.
+- **Get Single Product**: Retrieve details of a specific product by its ID.
+- **Get Product By Category**: Fetch products belonging to a specific category.
+- **Get All Products**: Retrieve a list of all products.
+- **Get All Products (Short)**: Retrieve a list of all products with only selected fields (using projections).
+- **Delete Product**: Remove a product from the database.
+- **Get All Categories**: Fetch all available categories of products.
 
-<h3>Exception Handling</h3>
+## Technologies Used
 
-<p>The project includes a global exception handler (<code>@ControllerAdvice</code>) to manage exceptions across all controllers and provide consistent error responses.</p>
+- **Spring Boot**
+- **Spring Data JPA**
+- **MySQL**
+- **JPA Query Methods**
+- **Entity Relationships (Cardinality)**
+  - `@ManyToOne` and other relationships
+- **Projection for fetching partial data**
 
-<h3>Technologies Used</h3>
+## Models
 
-<ul>
-  <li><strong>Spring Framework</strong>: Utilized for building robust and scalable Java applications.</li>
-  <li><strong>RestTemplate</strong>: Used for making HTTP requests to interact with the FakeStoreAPI.</li>
-  <li><strong>Maven</strong>: Dependency management and build automation tool.</li>
-  <li><strong>JUnit</strong>: Used for unit testing the application components.</li>
-</ul>
+### BaseModel
+
+A base class for common entity properties.
+
+### Product
+
+Represents a product entity with properties like ID, title, and category.
+
+### Category
+
+Represents a category entity with properties like ID and title. Each product is associated with a category.
+
+### Product Projection
+
+An interface-based projection to retrieve partial product data.
+
+## Getting Started
+
+### Prerequisites
+
+- Java 19 or higher
+- Maven
+- MySQL
+
 
 <h3>Usage</h3>
 
