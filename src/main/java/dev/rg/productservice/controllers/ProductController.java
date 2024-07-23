@@ -1,15 +1,13 @@
 package dev.rg.productservice.controllers;
 
-import dev.rg.productservice.dtos.ErrorDto;
 import dev.rg.productservice.dtos.UpdateProductDto;
 import dev.rg.productservice.models.Product;
 import dev.rg.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/products")
@@ -17,12 +15,14 @@ public class ProductController {
 
     private final ProductService productService;
 
-    public ProductController(@Qualifier("SelfProductService") ProductService productService){
+    public ProductController(@Qualifier("SelfProductService") ProductService productService)
+    {
         this.productService = productService;
     }
 
     @PostMapping()
-    public Product createProduct(@RequestBody UpdateProductDto newProduct){
+    public Product createProduct(@RequestBody UpdateProductDto newProduct)
+    {
         return productService.createProduct(newProduct);
     }
 
@@ -51,7 +51,8 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public Product deleteProduct(@PathVariable Long id){
+    public Product deleteProduct(@PathVariable Long id)
+    {
         return productService.deleteProduct(id);
     }
 

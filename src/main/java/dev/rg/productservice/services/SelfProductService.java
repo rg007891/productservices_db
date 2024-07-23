@@ -8,6 +8,7 @@ import dev.rg.productservice.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service("SelfProductService")
 public class SelfProductService implements ProductService{
@@ -23,11 +24,7 @@ public class SelfProductService implements ProductService{
 
     @Override
     public Product createProduct(UpdateProductDto updateProductDto) {
-        Product product = new Product();
-        product.setTitle(updateProductDto.getTitle());
-        product.setPrice(updateProductDto.getPrice());
-        product.setDescription(updateProductDto.getDescription());
-        product.setImage(updateProductDto.getImage());
+        Product product = updateProductDto.toProduct();
 
         Category categoryFromDB = categoryRepository.findByTitle(updateProductDto.getCategory());
         if(categoryFromDB == null){
@@ -42,26 +39,43 @@ public class SelfProductService implements ProductService{
 
     @Override
     public Product getSingleProduct(Long id) {
-        return null;
+        Optional<Product> product = productRepository.findById(id);
+
+        return product.orElse(null);
     }
 
     @Override
     public List<Product> getProductByCategory(String category) {
-        return List.of();
+        return productRepository.findByCategory_title(category);
     }
 
     @Override
     public List<Product> getAllProducts() {
-        return List.of();
+        return productRepository.findAll();
     }
 
     @Override
     public Product updateProduct(Long id, UpdateProductDto updateProductDto) {
-        return null;
+        Product newProduct = updateProductDto.toProduct();
+        newProduct.setId(id);
+
+        Category categoryFromDB = categoryRepository.findByTitle(updateProductDto.getCategory());
+        if(categoryFromDB == null)
+        {
+            Category category = new Category();
+            category.setTitle(updateProductDto.getCategory());
+            categoryFromDB = categoryRepository.save(category);
+        }
+
+        newProduct.setCategory(categoryFromDB);
+
+        return productRepository.save(newProduct);
     }
 
     @Override
     public Product deleteProduct(Long id) {
+        Product product = f
+        productRepository.deleteById(id);
         return null;
     }
 }
