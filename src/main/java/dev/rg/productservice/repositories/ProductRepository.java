@@ -7,12 +7,17 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
     Product save(Product product);
 
     List<Product> findByCategory_title(String title);
+
+    Optional<Product> findById(Long id);
+
+    void deleteById(Long id);
 
 //    @Query("select p from Product p where p.category.title = :title and p.id = :id")
 //    Product getProductWithASpecificTitleAndId(String electronic, long id);
